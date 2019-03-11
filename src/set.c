@@ -394,13 +394,14 @@ pset_family sf_read(FILE *fp)
     register pset p, last;
     pset_family A;
 
-    (void) fscanf(fp, "%d %d\n", &i, &j);
+    if (fscanf(fp, "%d %d\n", &i, &j) == EOF) fatal("sf_read: count and size read error");
+
     A = sf_new(i, j);
     A->count = i;
     foreach_set(A, last, p) {
-	(void) fscanf(fp, "%x", p);
+	if (fscanf(fp, "%x", p) == EOF) fatal("sf_read: set limit read error");
 	for(j = 1; j <= LOOP(p); j++)
-	    (void) fscanf(fp, "%x", p+j);
+	    if (fscanf(fp, "%x", p+j) == EOF) fatal("sf_read: set read error");
     }
     return A;
 }
@@ -427,7 +428,8 @@ pset_family sf_bm_read(FILE *fp)
     register pset pdest;
     pset_family A;
 
-    (void) fscanf(fp, "%d %d\n", &rows, &cols);
+    if (fscanf(fp, "%d %d\n", &rows, &cols) == EOF) fatal("sf_bm_read: rows and cols read error");
+
     A = sf_new(rows, cols);
     for(i = 0; i < rows; i++) {
 	pdest = GETSET(A, A->count++);

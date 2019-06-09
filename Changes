@@ -1,0 +1,16 @@
+Revision history for Espresso
+
+2.70
+     2019-06-09
+	This project had no Changes file, and the few changes
+	noted had no dates or version numbers attached. This
+	changes now.
+
+	Version number for this release is somewhat arbritrary, 
+	having been chosen to be larger than the last sort-of
+	mentioned vesion number in published papers.
+
+	Code had not been updated for modern C11 compilers.
+	A new keyword 'restrict' had been introduced in C,
+	so change all variable names of 'restrict' to
+	'restricted'. Catch compiler warnings from using fscanf().
